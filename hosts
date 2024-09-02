@@ -1,0 +1,9 @@
+{% if ':' in dnsmasq_cidr %}
+{% set duid = 'id:00:03:00:01:' %}
+{% else %}
+{% set duid = '' %}
+{% endif %}
+
+{% for mac in macs %}
+{{ duid }}{{ mac }},{{ plan }}-node-{{ loop.index0 }},{{ dnsmasq_cidr|network_ip(5 + loop.index0, True) }}
+{% endfor %}

@@ -1,0 +1,22 @@
+info: |
+    This deploys a vm to provide dhcp/dns services other an isolated network
+image: centos9stream
+launch_steps: true
+domain: karmalabs.com
+dnsmasq_cidr: 2620:52:0:1307::/64
+dnsmasq_network:
+dnsmasq_nic: eth1
+dhcp_hosts_number: 253
+pool: default
+numcpus: 16   
+memory: 32768
+disk_size: 80
+extra_disks: []
+rhnregister: true
+networkwait: 30
+external_network: default
+external_installer_ip:
+external_installer_mask:
+external_installer_gateway:
+installer_wait: False
+macs: []

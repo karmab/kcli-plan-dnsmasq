@@ -1,0 +1,5 @@
+fakeipv6:
+  cidr: {{ dnsmasq_cidr }}
+  dhcp: false
+  isolated: true
+  dns: false

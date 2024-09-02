@@ -1,0 +1,31 @@
+{{ plan }}-installer: 
+ image: {{ image }} 
+ pool: {{ pool }} 
+ numcpus: {{ numcpus }}
+ wait: {{ installer_wait }}
+{% if 'rhel' in image %}
+ rhnregister: {{ rhnregister }}
+{% endif %}
+ networkwait: {{ networkwait }}
+ memory: {{ memory }}
+ nets:                                                                                                                                         
+ - name: {{ external_network }}
+{% if external_installer_ip != None and external_installer_mask != None and external_installer_gateway != None %}
+   ip: {{ external_installer_ip }}
+   mask: {{ external_installer_mask  }}
+   gateway: {{ external_installer_gateway }}
+{% endif %}
+ - name: {{ dnsmasq_network }}
+   noconf: true
+ disks:
+ - {{ disk_size }}
+ files:
+ - 01_network.sh
+ - dnsmasq.conf
+ - hosts
+ - radvd.conf
+ - launch_steps.sh
+{% if launch_steps %}
+ cmds:
+ - bash /root/launch_steps.sh
+{% endif %}
